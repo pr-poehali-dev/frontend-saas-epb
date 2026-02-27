@@ -8,6 +8,7 @@ import DashboardCustomer from "./dashboard/DashboardCustomer";
 import ExpertisesPage from "./expertises/ExpertisesPage";
 import RegistryPage from "./registry/RegistryPage";
 import CalculatorPage from "./calculator/CalculatorPage";
+import TdReportsPage from "./td-reports/TdReportsPage";
 import Placeholder from "./Placeholder";
 
 const PAGE_TITLES: Record<string, string> = {
@@ -65,6 +66,7 @@ export default function Index() {
     if (activeKey === "expertises") return <ExpertisesPage />;
     if (activeKey === "registry")    return <RegistryPage />;
     if (activeKey === "calculator")  return <CalculatorPage />;
+    if (activeKey === "td_reports")  return <TdReportsPage />;
     return (
       <Placeholder
         title={title}
