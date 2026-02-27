@@ -5,6 +5,7 @@ import DashboardExpert from "./dashboard/DashboardExpert";
 import DashboardHead from "./dashboard/DashboardHead";
 import DashboardAdmin from "./dashboard/DashboardAdmin";
 import DashboardCustomer from "./dashboard/DashboardCustomer";
+import ExpertisesPage from "./expertises/ExpertisesPage";
 import Placeholder from "./Placeholder";
 
 const PAGE_TITLES: Record<string, string> = {
@@ -59,6 +60,7 @@ export default function Index() {
 
   const renderContent = () => {
     if (activeKey === "dashboard") return renderDashboard(currentRole);
+    if (activeKey === "expertises") return <ExpertisesPage />;
     return (
       <Placeholder
         title={title}
