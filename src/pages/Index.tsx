@@ -11,6 +11,7 @@ import CalculatorPage from "./calculator/CalculatorPage";
 import TdReportsPage from "./td-reports/TdReportsPage";
 import NkStaffPage from "./nk-staff/NkStaffPage";
 import EquipmentPage from "./equipment/EquipmentPage";
+import VerificationSchedulePage from "./verification-schedule/VerificationSchedulePage";
 import Placeholder from "./Placeholder";
 
 const PAGE_TITLES: Record<string, string> = {
@@ -70,7 +71,8 @@ export default function Index() {
     if (activeKey === "calculator")  return <CalculatorPage />;
     if (activeKey === "td_reports")  return <TdReportsPage />;
     if (activeKey === "nk_staff")    return <NkStaffPage />;
-    if (activeKey === "equipment")   return <EquipmentPage />;
+    if (activeKey === "equipment")          return <EquipmentPage />;
+    if (activeKey === "verif_schedule")    return <VerificationSchedulePage />;
     return (
       <Placeholder
         title={title}
