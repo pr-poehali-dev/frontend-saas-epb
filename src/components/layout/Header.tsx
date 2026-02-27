@@ -4,7 +4,6 @@ import { type UserRole } from "./Sidebar";
 interface HeaderProps {
   title: string;
   currentRole: UserRole;
-  onToggleSidebar: () => void;
   onRoleChange: (role: UserRole) => void;
 }
 
@@ -16,16 +15,9 @@ const ROLES: { value: UserRole; label: string }[] = [
   { value: "head", label: "Руководитель ЭО" },
 ];
 
-export default function Header({ title, currentRole, onToggleSidebar, onRoleChange }: HeaderProps) {
+export default function Header({ title, currentRole, onRoleChange }: HeaderProps) {
   return (
     <header className="h-14 bg-white border-b border-border flex items-center px-5 gap-4 shrink-0">
-      <button
-        onClick={onToggleSidebar}
-        className="text-muted-foreground hover:text-foreground transition-colors p-1 -ml-1 rounded"
-      >
-        <Icon name="Menu" size={18} />
-      </button>
-
       <div className="flex-1">
         <h1 className="text-sm font-semibold text-foreground">{title}</h1>
       </div>

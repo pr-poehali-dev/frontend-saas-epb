@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar, { type UserRole } from "./Sidebar";
 import Header from "./Header";
+
+const STORAGE_KEY = "epb_sidebar_collapsed";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -12,7 +14,15 @@ interface LayoutProps {
 }
 
 export default function Layout({ children, title, activeKey, currentRole, onNavigate, onRoleChange }: LayoutProps) {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState<boolean>(() => {
+    try { return localStorage.getItem(STORAGE_KEY) === "true"; }
+    catch { return false; }
+  });
+
+  useEffect(() => {
+    try { localStorage.setItem(STORAGE_KEY, String(collapsed)); }
+    catch { /* ignore */ }
+  }, [collapsed]);
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
@@ -21,12 +31,12 @@ export default function Layout({ children, title, activeKey, currentRole, onNavi
         activeKey={activeKey}
         onNavigate={onNavigate}
         collapsed={collapsed}
+        onToggle={() => setCollapsed(v => !v)}
       />
       <div className="flex flex-col flex-1 overflow-hidden">
         <Header
           title={title}
           currentRole={currentRole}
-          onToggleSidebar={() => setCollapsed(v => !v)}
           onRoleChange={onRoleChange}
         />
         <main className="flex-1 overflow-y-auto p-6">

@@ -70,9 +70,10 @@ interface SidebarProps {
   activeKey: string;
   onNavigate: (key: string) => void;
   collapsed?: boolean;
+  onToggle?: () => void;
 }
 
-export default function Sidebar({ currentRole, activeKey, onNavigate, collapsed = false }: SidebarProps) {
+export default function Sidebar({ currentRole, activeKey, onNavigate, collapsed = false, onToggle }: SidebarProps) {
   const visibleSections = NAV_SECTIONS.map(section => ({
     ...section,
     items: section.items.filter(item => item.roles.includes(currentRole))
@@ -87,17 +88,32 @@ export default function Sidebar({ currentRole, activeKey, onNavigate, collapsed 
     >
       {/* Logo */}
       <div className={cn(
-        "flex items-center gap-3 px-4 h-14 border-b shrink-0",
-        "border-sidebar-border"
+        "flex items-center h-14 border-b border-sidebar-border shrink-0 px-3 gap-3",
+        collapsed ? "justify-center" : "justify-between"
       )}>
-        <div className="flex items-center justify-center w-7 h-7 rounded bg-epb-blue shrink-0">
-          <Icon name="Shield" size={15} className="text-white" />
-        </div>
-        {!collapsed && (
-          <div className="leading-tight min-w-0">
-            <div className="text-white text-sm font-semibold tracking-tight truncate">Конструктор</div>
-            <div className="text-sidebar-foreground text-xs opacity-70 tracking-wide truncate">ЭПБ</div>
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="flex items-center justify-center w-7 h-7 rounded bg-epb-blue shrink-0">
+            <Icon name="Shield" size={15} className="text-white" />
           </div>
+          {!collapsed && (
+            <div className="leading-tight min-w-0">
+              <div className="text-white text-sm font-semibold tracking-tight truncate">Конструктор</div>
+              <div className="text-sidebar-foreground text-xs opacity-70 tracking-wide truncate">ЭПБ</div>
+            </div>
+          )}
+        </div>
+        {onToggle && (
+          <button
+            onClick={onToggle}
+            className={cn(
+              "flex items-center justify-center w-6 h-6 rounded transition-colors shrink-0",
+              "text-sidebar-foreground hover:text-sidebar-accent-foreground hover:bg-sidebar-accent",
+              collapsed && "mt-0"
+            )}
+            title={collapsed ? "Развернуть меню" : "Свернуть меню"}
+          >
+            <Icon name={collapsed ? "PanelLeftOpen" : "PanelLeftClose"} size={15} />
+          </button>
         )}
       </div>
 
