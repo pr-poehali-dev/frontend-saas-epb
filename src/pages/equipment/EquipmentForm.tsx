@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { v4 as uuid } from "uuid";
 import Icon from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 import {
@@ -87,7 +86,7 @@ export default function EquipmentForm({ initial, onClose, onSave }: Props) {
   };
 
   const addVerif = () => {
-    setVerifs(vs => [...vs, { id: uuid(), ...EMPTY_VERIF() }]);
+    setVerifs(vs => [...vs, { id: crypto.randomUUID(), ...EMPTY_VERIF() }]);
   };
 
   const removeVerif = (id: string) => {
@@ -100,7 +99,7 @@ export default function EquipmentForm({ initial, onClose, onSave }: Props) {
 
   const handleSave = () => {
     const eq: Equipment = {
-      id: initial?.id ?? uuid(),
+      id: initial?.id ?? crypto.randomUUID(),
       name,
       model,
       serial,
